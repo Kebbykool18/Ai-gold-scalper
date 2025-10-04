@@ -1,0 +1,23 @@
+app = "gold-scalper-bot"   # change this to a unique app name
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PYTHONUNBUFFERED = "1"
+
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 1
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
